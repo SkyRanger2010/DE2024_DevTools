@@ -9,7 +9,7 @@ function host() {
 	OIFS=$IFS
 	IFS="/"
 	for host in $1 ; do
-		res=$host
+		res=${host%:*}
 		break
 	done	
 	IFS=$OIFS
