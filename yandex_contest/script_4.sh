@@ -46,7 +46,7 @@ for item in $(cat input.txt) ; do
 			echo "Args:" >> output.txt
 			is_args=1
 		fi	
-		echo "  Key: $key; Value:  $value" >> output.txt
+		echo "  Key: $key; Value: $value" >> output.txt
 	done
 	IFS=$OIFS
 	echo >> output.txt
