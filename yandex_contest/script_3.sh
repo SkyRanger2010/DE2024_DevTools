@@ -7,19 +7,11 @@ for num in $(cat input.txt) ; do
 		X=$num
 		COUNT=$(( COUNT + 1 ))
 	else
-		if [ $COUNT -eq 2 ] ; then
-			SUM=$num
-			COUNT=$(( COUNT + 1 ))
-		else
-			step_num=1
-			power=$(( COUNT - 2 ))
-			for ((i=1;i<=power;i++)); do
-				step_num=$(( (step_num*X)%MOD_EVAL ))
-			done
-			STEP_SUM=$(( (num*step_num)%MOD_EVAL ))
-			SUM=$(( (SUM+STEP_SUM)))
-			COUNT=$(( COUNT + 1 ))
-		fi
+		
+		power=$(( COUNT - 2 ))
+		STEP_SUM=$(awk "BEGIN {print $num*$X^$power%$MOD_EVAL }")
+		SUM=$(( (SUM+STEP_SUM)%MOD_EVAL ))
+		COUNT=$(( COUNT + 1 ))
 	fi
 done
-echo $((SUM%MOD_EVAL)) > output.txt  
+echo $((SUM%MOD_EVAL))  > output.txt
