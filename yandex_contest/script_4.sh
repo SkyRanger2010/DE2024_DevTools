@@ -1,12 +1,18 @@
 #!/bin/bash
 
 function scheme() {
-	res=$(echo $1 | grep -Po "^(https://)|(http://)")
+	res=$(echo $1 | grep -Po "^(https://)|^(http://)")
 	echo $res
 }
 
 function host() {
-	res=$(echo $1 | grep -Po "(^.+(?=:))|(^.+(?=(\/)))|(^.+(?=$))")
+	OIFS=$IFS
+	IFS="/"
+	for host in $1 ; do
+		res=$host
+		break
+	done	
+	IFS=$OIFS
 	echo $res
 }
 
@@ -25,11 +31,11 @@ for item in $(cat input.txt) ; do
 	item=$(echo $item | sed 's/google/yandex/g')
 	sh=$(scheme $item)
 	if [ $sh ] ; then
-		echo "Scheme: $sh" >> output.txt
+		echo "Scheme: $sh"  >> output.txt
 		item=$(echo $item |sed -r 's|'"$sh"'||')
 	fi
 	hst=$(host $item)
-	echo "Host: $hst" >> output.txt
+	echo "Host: $hst"  >> output.txt
 	item=$(echo $item | sed -r 's|'"$hst"'||')
 	port=$(port $item)
 	if [ $port ] ; then
@@ -43,7 +49,7 @@ for item in $(cat input.txt) ; do
 		key=${arg%=*}
 		value=${arg#*=}
 		if [[ -z "$is_args" ]] ; then
-			echo "Args:" >> output.txt
+			echo "Args:"  >> output.txt
 			is_args=1
 		fi	
 		echo "  Key: $key; Value: $value" >> output.txt
