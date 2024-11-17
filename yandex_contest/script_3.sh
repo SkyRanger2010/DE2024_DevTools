@@ -1,17 +1,16 @@
 #!/bin/bash
-COUNT=1
-SUM=$((0))
-MOD_EVAL=$((10**9+7))
+cnt=1
+sum=$((0))
+mod=$((10**9+7))
 for num in $(cat input.txt) ; do
-	if [ $COUNT -eq 1 ] ; then
-		X=$num
-		COUNT=$(( COUNT + 1 ))
+	if [ $cnt -eq 1 ] ; then
+		x=$num
+		cnt=$(( cnt + 1 ))
 	else
 		
-		power=$(( COUNT - 2 ))
-		STEP_SUM=$(awk "BEGIN {print $num*$X^$power%$MOD_EVAL }")
-		SUM=$(( (SUM+STEP_SUM)%MOD_EVAL ))
-		COUNT=$(( COUNT + 1 ))
+		power=$(( cnt - 2 ))
+		sum=$(awk "BEGIN {print ($sum+$num*$x^$power)%$mod}")
+		cnt=$(( cnt + 1 ))
 	fi
 done
-echo $((SUM%MOD_EVAL))  > output.txt
+echo $sum  > output.txt
