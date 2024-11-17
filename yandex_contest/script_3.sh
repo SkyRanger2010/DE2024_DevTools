@@ -7,10 +7,19 @@ for num in $(cat input.txt) ; do
 		X=$num
 		COUNT=$(( COUNT + 1 ))
 	else
-		POWER=$(( COUNT - 2 ))
-		STEP_SUM=$(( (num*X**POWER)%MOD_EVAL ))
-		SUM=$(( (SUM+STEP_SUM)%MOD_EVAL))
-		COUNT=$(( COUNT + 1 ))
+		if [ $COUNT -eq 2 ] ; then
+			SUM=$num
+			COUNT=$(( COUNT + 1 ))
+		else
+			step_num=1
+			power=$(( COUNT - 2 ))
+			for ((i=1;i<=power;i++)); do
+				step_num=$(( (step_num*X)%MOD_EVAL ))
+			done
+			STEP_SUM=$(( (num*step_num)%MOD_EVAL ))
+			SUM=$(( (SUM+STEP_SUM)%MOD_EVAL))
+			COUNT=$(( COUNT + 1 ))
+		fi
 	fi
 done
-echo $SUM  > output.txt
+echo $SUM > output.txt  
