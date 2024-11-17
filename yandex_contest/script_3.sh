@@ -6,14 +6,17 @@ prev=$((0))
 for num in $(cat input.txt) ; do
 	if [ $cnt -eq 1 ] ; then
 		x=$num
-		prev=$((x%mod))
 		cnt=$(( cnt + 1 ))
 	else
 		if [ $cnt -eq 2 ] ; then
 			sum=$((num%mod))
 			cnt=$(( cnt +1 ))
 		else
-			prev=$((prev*x%mod))
+			if [ $cnt -eq 3 ] ; then
+				prev=$((x%mod))
+			else
+				prev=$((prev*x%mod))
+			fi
 			sum=$(( (sum+num*prev)%mod ))
 			cnt=$(( cnt + 1 ))
 		fi
