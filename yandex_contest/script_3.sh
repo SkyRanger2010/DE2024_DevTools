@@ -1,5 +1,4 @@
 #!/bin/bash
-
 COUNT=1
 SUM=0
 for num in $(cat input.txt) ; do
@@ -8,8 +7,8 @@ for num in $(cat input.txt) ; do
 		COUNT=$(( COUNT + 1 ))
 	else
 		POWER=$(( COUNT - 2)) 
-		SUM=$(( SUM + $num * $(echo "$X^$POWER" | bc) ))
+		SUM=$(( SUM + $num * $X^$POWER ))
 		COUNT=$(( COUNT + 1 ))
 	fi
 done
-echo "$SUM%(10^9+7)" | bc > output.txt
+echo $(( $SUM%(10^9+7) )) > output.txt
