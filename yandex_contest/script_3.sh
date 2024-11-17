@@ -17,9 +17,9 @@ for num in $(cat input.txt) ; do
 				step_num=$(( (step_num*X)%MOD_EVAL ))
 			done
 			STEP_SUM=$(( (num*step_num)%MOD_EVAL ))
-			SUM=$(( (SUM+STEP_SUM)%MOD_EVAL))
+			SUM=$(( (SUM+STEP_SUM)))
 			COUNT=$(( COUNT + 1 ))
 		fi
 	fi
 done
-echo $SUM > output.txt  
+echo $((SUM%MOD_EVAL)) > output.txt  
