@@ -10,7 +10,7 @@ for num in $(cat input.txt) ; do
 	else
 		if [ $cnt -eq 2 ] ; then
 			sum=$((num%mod))
-			cnt=$(( cnt +1 ))
+			cnt=$(( cnt + 1 ))
 		else
 			if [ $cnt -eq 3 ] ; then
 				prev=$((x%mod))
