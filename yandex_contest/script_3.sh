@@ -3,7 +3,7 @@ cnt=1
 sum=$((0))
 mod=$((10**9+7))
 prev=$((0))
-for num in $(cat input.txt) ; do
+while IFS= read -r num ; do
 	if [ $cnt -eq 1 ] ; then
 		x=$num
 		cnt=$(( cnt + 1 ))
@@ -21,5 +21,5 @@ for num in $(cat input.txt) ; do
 			cnt=$(( cnt + 1 ))
 		fi
 	fi
-done
+done < input.txt
 echo $sum  > output.txt

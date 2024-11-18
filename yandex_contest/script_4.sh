@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function scheme() {
-	res=$(echo $1 | grep -Po "^(https://)|^(http://)")
-	echo $res
+	res=$(echo "$1" | grep -Po "^(https://)|^(http://)")
+	echo "$res"
 }
 
 function host() {
@@ -13,30 +13,30 @@ function host() {
 		break
 	done	
 	IFS=$OIFS
-	echo $res
+	echo "$res"
 }
 
 function port() {
-	res=$(echo $1 | grep -Po "(?<=:)(\d+)")
-	echo $res	
+	res=$(echo "$1" | grep -Po "(?<=:)(\d+)")
+	echo "$res"	
 }
 
-> output.txt
-for item in $(cat input.txt) ; do
-	item=$(echo $item | sed 's/google/yandex/g')
-	sh=$(scheme $item)
-	if [ $sh ] ; then
+true > output.txt
+while IFS= read -r item ; do
+	item=${item//google/yandex}
+	sh=$(scheme "$item")
+	if [ "$sh" ] ; then
 		echo "Scheme: $sh"  >> output.txt
-		item=$(echo $item |sed -r 's|'"$sh"'||')
+		item=$(echo "$item" |sed -r 's|'"$sh"'||')
 	fi
-	hst=$(host $item)
+	hst=$(host "$item")
 	echo "Host: $hst"  >> output.txt
-	item=$(echo $item | sed -r 's|'"$hst"'||')
-	port=$(port $item)
-	if [ $port ] ; then
+	item=$(echo "$item" | sed -r 's|'"$hst"'||')
+	port=$(port "$item")
+	if [ "$port" ] ; then
 		echo "Port: $port" >> output.txt
 	fi
-	item=$(echo $item | grep -Po "(?<=[?]).*" )
+	item=$(echo "$item" | grep -Po "(?<=[?]).*" )
 	OIFS=$IFS
 	IFS="&"
 	is_args=""
@@ -51,4 +51,4 @@ for item in $(cat input.txt) ; do
 	done
 	IFS=$OIFS
 	echo >> output.txt
-done
+done < input.txt
