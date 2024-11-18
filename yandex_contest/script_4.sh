@@ -21,11 +21,6 @@ function port() {
 	echo $res	
 }
 
-function arg_k() {
-	res=$(echo $1 | grep -Po "^.*?(?=\=)")
-	echo $res
-}
-
 > output.txt
 for item in $(cat input.txt) ; do
 	item=$(echo $item | sed 's/google/yandex/g')
