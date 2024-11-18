@@ -21,6 +21,14 @@ function port() {
 	echo "$res"	
 }
 
+<<<<<<< HEAD
+=======
+function arg_k() {
+	res=$(echo "$1" | grep -Po "^.*?(?=\=)")
+	echo "$res"
+}
+
+>>>>>>> main
 true > output.txt
 while IFS= read -r item ; do
 	item=${item//google/yandex}
